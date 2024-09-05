@@ -11,4 +11,8 @@ public interface MovieRepository extends JpaRepository<Movie,Integer>{
 	//No need to write repetitive methods, Spring Boot does that for you.
 	// Just implement the interface and call the methods.
 
+//	save
+//	add
+//	delete
+//	find
 }

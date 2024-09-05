@@ -2,11 +2,14 @@ package com.Microservices.Controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.Microservices.Entity.Movie;
@@ -38,20 +41,30 @@ public class MovieController {
 	
 	@PostMapping("/addmovie")
 	@ResponseBody
-	public String addMovie() {
-		Movie m2=new Movie();
+	public String addMovie(@RequestBody Movie m) {
+//		Movie m2=new Movie();
 //		m2.setId(1);
-		m2.setTitle("Zombieland");
-		m2.setRating(3.7);
-		m2.setReleaseyear(2010);
+//		m2.setTitle("Zombieland");
+//		m2.setRating(3.7);
+//		m2.setReleaseyear(2010);
 		
-		Movie m1=repo.save(m2);
+		Movie m1=repo.save(m);
 		if (m1 != null) {
 			return "Succesfully Added";
 		} else {
 			return "Error";
+		}	
+	}
+	
+	@GetMapping("/findmovie-by-id/{id}")
+	@ResponseBody
+	public Movie findById(@PathVariable int id) {
+		Optional<Movie> optional=repo.findById(id);
+		if(optional.isEmpty()) {
+			throw new RuntimeException("Id "+id+" not found"); //By default goes to Spring Class Exceptionhandle. Just throw any error, Spring will handle it.
 		}
-		
-		
+		else {
+			return optional.get();
+		}
 	}
 }
