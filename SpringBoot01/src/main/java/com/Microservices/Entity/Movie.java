@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 public class Movie {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) //auto increment the primary key incase you don't pass id.
+//	@GeneratedValue(strategy=GenerationType.IDENTITY) //auto increment the primary key.
 	private int id;
 	private String title;
 	private double rating;
