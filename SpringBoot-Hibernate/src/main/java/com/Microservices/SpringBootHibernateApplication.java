@@ -6,11 +6,16 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.Microservices.Entity.Address;
+import com.Microservices.Entity.AdharCard;
 import com.Microservices.Entity.Customer;
 import com.Microservices.Entity.Flight;
+import com.Microservices.Entity.Person;
 import com.Microservices.Entity.Pilot;
+import com.Microservices.Repository.AdharRepository;
 import com.Microservices.Repository.CustomerRepository;
 import com.Microservices.Repository.FilghtRepository;
+import com.Microservices.Repository.PersonRepository;
+import com.Microservices.Repository.SchoolRepository;
 
 @SpringBootApplication
 public class SpringBootHibernateApplication implements CommandLineRunner{
@@ -20,6 +25,16 @@ public class SpringBootHibernateApplication implements CommandLineRunner{
 	
 	@Autowired
 	private CustomerRepository customer_repo;
+	
+	@Autowired
+	private PersonRepository person_repo;
+	
+	@Autowired
+	private AdharRepository adhar_repo;
+	
+	@Autowired
+	private SchoolRepository scl_repo;
+	
 	
 	// responsibility only to start applictaion. Can write saving code here, but not advised
 	public static void main(String[] args) {
@@ -35,6 +50,7 @@ public class SpringBootHibernateApplication implements CommandLineRunner{
 		
 //		saveFlight();
 //		saveCustomer();
+//		savePerson();
 		
 	}
 	
@@ -74,6 +90,28 @@ public class SpringBootHibernateApplication implements CommandLineRunner{
 		c.setSsn(567);
 		
 		customer_repo.save(c);
+	}
+	
+	public void savePerson() {
+		Person p=new Person();
+		AdharCard ac=new AdharCard();
+		
+		p.setName("Vedh");
+		p.setAge(22);
+		p.setId(67);
+		ac.setP(p);
+		
+		ac.setAdhar_num(564378263L);
+		ac.setAddress("Hyderabad");
+		p.setAd_num(ac);
+		
+		adhar_repo.save(ac);
+		person_repo.save(p);
+		
+	}
+	
+	public void saveStudent() {
+		
 	}
 
 }
